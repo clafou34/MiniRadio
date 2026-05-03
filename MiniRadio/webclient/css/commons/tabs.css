@@ -1,0 +1,75 @@
+#tabs {
+    padding-top: 0.5em;
+    padding-left: 1em;
+    padding-right: 1em;
+    margin-bottom:0;
+    border-bottom: 0 none;
+    padding-bottom: 0;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    border-bottom-color: var(--tab-border-color);
+}
+
+#tabs menu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-areas : '. . . . btn-queue';
+    grid-template-columns: min-content min-content min-content auto min-content;
+    column-gap: 3px;
+}
+
+#tabs menu>li {
+    margin:0;
+    border:0 none;
+    padding: 0;
+    height: 2.2rem;
+}
+
+#tabs menu>li:last-child {
+    grid-area: btn-queue;
+}
+
+#tabs menu>li>button {
+    width: 3.6rem;
+    height: 2.2rem;
+    background-size: 2rem 2rem;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-color: var(--tab-border-color);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom: 0 none;
+    background-color : var(--inactive-tab-background-color);
+}
+
+#tabs menu>li>button.current-tab {
+    background-color : var(--active-tab-background-color);
+    height: calc(2.2rem + 2px);
+}
+
+#btn-go-to-folders.not-current-tab {
+    background-image: url('../../img/folder-green.svg');
+}
+
+#btn-go-to-folders.current-tab {
+    background-image: url('../../img/folder-white.svg');
+}
+
+#btn-go-to-radios.not-current-tab {
+    background-image: url('../../img/radio-green.svg');
+}
+
+#btn-go-to-radios.current-tab {
+    background-image: url('../../img/radio-white.svg');
+}
+
+#btn-go-to-queue.not-current-tab {
+    background-image: url('../../img/queue-green.svg');
+}
+
+#btn-go-to-queue.current-tab {
+    background-image: url('../../img/queue-white.svg');
+}

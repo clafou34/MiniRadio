@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="800px"
+   height="800px"
+   viewBox="0 0 24 24"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="back-green.svg"
+   inkscape:version="1.4.2 (2aeb623e1d, 2025-05-12)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="1.0375"
+     inkscape:cx="400"
+     inkscape:cy="400"
+     inkscape:window-width="1920"
+     inkscape:window-height="1032"
+     inkscape:window-x="0"
+     inkscape:window-y="24"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg1" />
+  <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+  <title
+     id="title1">ic_fluent_ios_arrow_left_24_filled</title>
+  <desc
+     id="desc1">Created with Sketch.</desc>
+  <g
+     id="🔍-Product-Icons"
+     stroke="none"
+     stroke-width="1"
+     fill="none"
+     fill-rule="evenodd">
+    <g
+       id="ic_fluent_ios_arrow_left_24_filled"
+       fill="#212121"
+       fill-rule="nonzero">
+      <path
+         d="M12.7270006,3.68663679 C13.1062197,3.28512543 13.0881482,2.6522184 12.6866368,2.27299937 C12.2851254,1.89378034 11.6522184,1.91185185 11.2729994,2.31336321 L2.77268886,11.3133632 C2.40871099,11.6987375 2.4086868,12.3011749 2.77263373,12.6865784 L11.2729442,21.6880264 C11.652131,22.0895682 12.2850366,22.1076905 12.6865784,21.7285038 C13.0881202,21.349317 13.1062426,20.7164114 12.7270558,20.3148696 L4.87515196,12.0000552 L12.7270006,3.68663679 Z"
+         id="🎨-Color" />
+    </g>
+  </g>
+  <path
+     style="fill:#1c8f1c;stroke-width:0.963855"
+     d="m 388.61924,730.62943 c -2.54857,-0.99579 -6.08156,-2.91482 -7.8511,-4.2645 C 378.99861,725.01524 312.98742,655.58166 234.07662,572.06809 130.43089,462.37685 89.859887,418.82268 87.92762,415.17285 c -5.084585,-9.60419 -5.084585,-20.73758 0,-30.35005 1.936119,-3.66026 42.63736,-47.34547 147.38262,-158.18783 C 397.17081,55.352646 383.88479,68.293764 398.55422,67.62886 c 9.15701,-0.415049 16.31037,2.08313 22.88113,7.990808 11.28444,10.145677 14.33361,25.435702 7.77449,38.985032 -1.19264,2.46368 -8.51683,11.12987 -17.09407,20.22619 -8.25404,8.75356 -67.81457,71.83093 -132.35673,140.17193 -64.54217,68.34102 -117.3494,124.60081 -117.3494,125.0218 0,0.42097 56.24256,60.33464 124.98349,133.14148 68.74091,72.80683 128.32883,135.92971 132.41759,140.27305 4.08877,4.34334 8.34576,9.78018 9.45999,12.08188 6.47295,13.37134 3.46641,28.69804 -7.57726,38.62726 -8.94054,8.0383 -22.35913,10.66778 -33.07421,6.48114 z"
+     id="path1"
+     transform="scale(0.03)" />
+  <metadata
+     id="metadata1">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>ic_fluent_ios_arrow_left_24_filled</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>

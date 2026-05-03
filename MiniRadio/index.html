@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html  lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>MiniRadio</title>
+    </head>
+    <body>
+        <h1>MiniRadio</h1>
+        <ul>
+            % if url_web_client != "":
+            <li><a href="{{url_web_client}}">Web Client</a></li>
+            % end
+            <li><a href="{{url_api}}">API</a></li>
+        </ul>
+    </body>
+</html>

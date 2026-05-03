@@ -1,0 +1,16 @@
+:root {
+  --primary-bg-color: black;
+  --btn-text-color: rgb(28, 143, 28);
+  --btn-background-color: #202020;
+  --active-tab-background-color: #121212;
+  --inactive-tab-background-color: #080808;
+  --tab-border-color: white;
+  --display-text-color: #171b18;
+  --display-text-background-color: #718176;
+  --display-text-border-color: #999999;
+  --button-border-color: #999999;
+  --drop-down-text-color: #BBBBBB;
+  --drop-down-border-color: #888888;
+  --drop-down-bg-color: #200505;
+  --drop-down-active-bg-color: #301515;
+}

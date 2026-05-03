@@ -1,0 +1,49 @@
+ul.folder-list {
+    list-style-type: none;
+    margin-left: 2rem;
+    padding-left: 0.5rem;
+}
+
+section.folder-tree > ul.folder-list {
+    margin-left: 0;
+    padding-left: 0;
+}
+
+ul.folder-list > li > details > summary {
+    text-align: right;
+}
+
+ul.folder-list > li > details > summary::marker {
+    width:2rem;
+}
+
+.folder-title {
+    display: inline-flex;
+    flex-direction: row;
+    margin-top: 0.2rem;
+    width: calc(100% - 1.5rem);
+    padding-bottom: 0.2rem;
+    border-bottom-style: solid;
+    border-bottom-color: grey;
+    border-bottom-width: 1px;
+}
+
+.folder-title > span[name="folder-title-text"] {
+    padding-top: 0.3rem;
+    width: 100%;
+    text-align: left;
+    font-weight: bold;
+    color: #99BB99;
+    overflow-wrap: anywhere;
+}
+
+li.folder-song-item {
+    display: flex;
+    flex-direction: row;
+    margin-top: 0.3rem;
+    margin-bottom: 0.1rem;
+}
+
+li.folder-song-item > button:first-of-type {
+    margin-left:0.5rem;
+}

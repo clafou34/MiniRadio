@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "../Miniradio"
+		},
+		{
+			"name": "MiniRadio",
+			"path": "../Miniradio/MiniRadio"
+		}
+	],
+	"settings": {}
+}

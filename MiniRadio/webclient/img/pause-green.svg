@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="800px"
+   height="800px"
+   viewBox="0 0 48 48"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="pause-green.svg"
+   inkscape:version="1.4.3 (fcd0343856, 2026-01-01)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="1.0375"
+     inkscape:cx="400"
+     inkscape:cy="400"
+     inkscape:window-width="1920"
+     inkscape:window-height="1032"
+     inkscape:window-x="0"
+     inkscape:window-y="24"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg1" />
+  <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+  <title
+     id="title1">ic_fluent_pause_48_filled</title>
+  <desc
+     id="desc1">Created with Sketch.</desc>
+  <g
+     id="🔍-Product-Icons"
+     stroke="none"
+     stroke-width="1"
+     fill="none"
+     fill-rule="evenodd">
+    <g
+       id="ic_fluent_pause_48_filled"
+       fill="#212121"
+       fill-rule="nonzero">
+      <path
+         d="M17.75,7 C19.5449254,7 21,8.45507456 21,10.25 L21,37.75 C21,39.5449254 19.5449254,41 17.75,41 L12.25,41 C10.4550746,41 9,39.5449254 9,37.75 L9,10.25 C9,8.45507456 10.4550746,7 12.25,7 L17.75,7 Z M35.75,7 C37.5449254,7 39,8.45507456 39,10.25 L39,37.75 C39,39.5449254 37.5449254,41 35.75,41 L30.25,41 C28.4550746,41 27,39.5449254 27,37.75 L27,10.25 C27,8.45507456 28.4550746,7 30.25,7 L35.75,7 Z"
+         id="🎨-Color" />
+    </g>
+  </g>
+  <path
+     style="fill:#1c8f1c;stroke-width:0.963855"
+     d="m 190.42678,680.93273 c -14.71151,-4.037 -27.52916,-14.71881 -34.08175,-28.40261 -2.15775,-4.50602 -4.38677,-10.76641 -4.95338,-13.91196 -1.44579,-8.02631 -1.44579,-469.21001 0,-477.23632 0.56661,-3.14555 2.79563,-9.40594 4.95338,-13.91196 6.72185,-14.03726 19.30264,-24.40195 34.54205,-28.4575 7.77951,-2.0703 110.71849,-2.06196 118.50322,0.01 17.59825,4.683 32.11176,18.77333 38.23753,37.12259 1.69452,5.07583 1.7813,15.19724 2.04114,238.07229 0.17062,146.32799 -0.0761,235.65262 -0.66439,240.5304 -1.23541,10.24374 -3.95386,17.20208 -10.04184,25.70391 -6.56218,9.16403 -16.19021,16.17947 -26.80814,19.53368 l -7.6758,2.42478 -54.64904,-0.0862 c -42.74736,-0.0674 -55.68437,-0.37029 -59.40298,-1.39072 z"
+     id="path1"
+     transform="scale(0.06)" />
+  <path
+     style="fill:#1c8f1c;stroke-width:0.963855"
+     d="M 487.85681,680.03027 C 471.03948,674.5856 457.673,660.78012 452.36569,643.37349 450.67763,637.83706 450.60241,627.45524 450.60241,400 c 0,-227.27993 0.0764,-237.84133 1.75981,-243.37349 5.06212,-16.63532 17.83791,-30.34507 33.90284,-36.38128 5.714,-2.14697 6.43987,-2.17659 60.72289,-2.47821 60.22871,-0.33465 60.88021,-0.28718 72.61474,5.29027 14.134,6.71793 26.17909,22.63284 29.00566,38.32455 1.44579,8.02631 1.44579,469.21001 0,477.23632 -0.56662,3.14555 -2.79564,9.40594 -4.95338,13.91196 -6.72185,14.03725 -19.30263,24.40195 -34.54204,28.4575 -4.30761,1.14635 -15.09667,1.39341 -59.71534,1.36745 l -54.45783,-0.0317 z"
+     id="path2"
+     transform="scale(0.06)" />
+  <metadata
+     id="metadata2">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>ic_fluent_pause_48_filled</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>

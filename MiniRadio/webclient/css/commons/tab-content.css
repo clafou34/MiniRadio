@@ -1,0 +1,45 @@
+main > section {
+    padding-top: 15px;
+    padding-left: 1rem;
+    padding-right: 0.9rem;
+    background-color: var(--active-tab-background-color);
+    min-height: calc(98vh - 10rem);
+}
+
+ @media (max-width: 600px) {
+    main > section {
+        padding-left: 0.2rem;
+        padding-right: 0.7rem;
+    }
+ }
+
+.tabTitleZone {
+    display: flex;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.tabTitleZone > h1 {
+    display: inline-block;
+    text-align: center;
+    flex-grow: 1;
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 0.2rem;
+    margin-top: 0.2rem;
+    font-family: Verdana, sans-serif;
+    text-transform : uppercase;
+}
+
+.tabTitleZone button[name="backBtn"] {
+    width: 1.75rem;
+    height: 1.75rem;
+    border:0;
+    background-color: var(--active-tab-background-color);
+    background-size: 1.5em 1.5em;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('../../img/back-green.svg');
+}
+

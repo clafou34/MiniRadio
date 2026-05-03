@@ -1,0 +1,106 @@
+#control {
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+#control h1 {
+    visibility:hidden;
+    height: 0;
+    margin: 0;
+}
+
+#controlbar {
+    list-style-type: none;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-top: 8px;
+    padding: 0;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-areas : 'toolbarBtnPrev toolbarBtnPlaypause toolbarBtnNext . toolbarBtnSettings';
+    grid-template-columns: min-content min-content min-content auto min-content;
+    column-gap: 3px;
+}
+
+#controlbar > div > button {
+    width: 2.2rem;
+    height: 2.2rem;
+    background-size: 1.9rem 1.9rem;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-color: var(--button-border-color);
+    border-width: 2px;
+    border-style: outset;
+
+}
+
+#controlbar > div#control-previous {
+    grid-area: toolbarBtnPrev;
+}
+
+#controlbar > div#control-previous > button {
+    background-image: url('../../img/previous-green.svg');
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+#controlbar > div#control-play-pause {
+    grid-area: toolbarBtnPlaypause;
+}
+
+#controlbar > div#control-play-pause > button.control-play-btn {
+    background-image: url('../../img/play-green.svg');
+}
+
+#controlbar > div#control-play-pause > button.control-pause-btn {
+    background-image: url('../../img/pause-green.svg');
+}
+
+#controlbar > div#control-next {
+    grid-area: toolbarBtnNext;
+}
+
+#controlbar > div#control-next > button {
+    background-image: url('../../img/next-green.svg');
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+#controlbar > div#control-settings {
+    grid-area: toolbarBtnSettings;
+}
+
+#controlbar > div#control-settings > button {
+    background-image: url('../../img/settings-green.svg');
+    border-radius: 5px;
+}
+
+#current-item-display {
+    width: 100%;
+    background-color: var(--display-text-background-color);
+    color:var(--display-text-color);
+    padding-left:0.2em;
+    border-style: inset;
+    border-color: var(--display-text-border-color);
+    border-width: 2px;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+#current-item-display > div {
+    height: 1.1em;
+    margin-top: 0.1em;
+    margin-bottom: 0.2em;
+}
+
+#current-item-display > div#current-item-title {
+    font-weight: bold;
+    font-size: 110%;
+}
+
+#current-item-display > div#current-item-complement {
+    font-size: 90%;
+}

@@ -1,0 +1,50 @@
+section#queue-section {
+    padding-left:1.8rem;
+    padding-right:1.6rem;
+}
+
+ @media (max-width: 600px) {
+    section#queue-section {
+        padding-left:0.8rem;
+        padding-right:0.6rem;
+    }
+}
+
+#queue-list {
+    margin-top: 2em;
+}
+
+#queue-list > form > ul {
+    padding-left: 0;
+    list-style-type: none;
+}
+
+#queue-list > form > ul > li {
+    display: flex;
+    flex-direction: row;
+    font-size: 1em;
+    margin-top: 0.3rem;
+    margin-bottom: 0.1rem;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.queue-item > input[type="radio"] {
+    width:1px;
+    height:1px;
+    position:absolute;
+    clip-path: circle(0);
+}
+
+.queue-item > input[type="radio"]:checked+label {
+    font-weight: bold;
+}
+
+.queue-item > input[type="radio"]:focus ~ label.displayText {
+    border-color: white;
+}
+
+.queue-item > button:first-of-type {
+    margin-left:0.5rem;
+}
+

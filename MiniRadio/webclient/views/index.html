@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MiniRadio Web Client</title>
+    <link href="css/commons/colors.css" rel="stylesheet">
+    <link href="css/commons/common.css" rel="stylesheet">
+    <link href="css/sections/control.css" rel="stylesheet">
+    <link href="css/commons/tabs.css" rel="stylesheet">
+    <link href="css/commons/tab-content.css" rel="stylesheet">
+    <link href="css/sections/player.css" rel="stylesheet">
+    <link href="css/sections/queue.css" rel="stylesheet">
+    <link href="css/sections/folders-tree.css" rel="stylesheet">
+    <link href="css/commons/snackbar.css" rel="stylesheet">
+    <link href="css/sections/settings.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+</head>
+
+<body onload="commonBodyOnLoad();">
+    <header>
+        <section id="control">
+            <h1>Control</h1>
+            <input type="hidden" id="current-item-id"\>
+            <div id="current-item-display">
+                <div id="current-item-title"></div>
+                <div id="current-item-complement"></div>
+            </div>
+            <section id="controlbar">
+                <div id="control-previous">
+                    <button type="button" onclick="controlBtnPreviousOnClick()" title="Previous song"></button>
+                </div>
+                <div id="control-play-pause">
+                    <button type="button" onmousedown="controlBtnPlayPauseOnClick()" title="Play or pause" class="control-play-btn"></button>
+                </div>
+                <div id="control-next">
+                    <button type="button" onclick="controlBtnNextOnClick()" title="Next song"></button>
+                </div>
+                <div id="control-settings">
+                    <button type="button" title="Settings" id="control-settings-btn"></button>
+                    <menu id="settings-drop-down" class="drop_down_list">
+                        <li><button onclick="settingsRefreshDbOnClick()" title="Refresh folder database with filesystem content">Refresh database</button></li>
+                        <li><button onclick="settingsToggleExpertMode()" title="Set the expert mode to be able to modify some elements of the database.">Expert mode</button></li>
+                    </menu>
+                </div>
+            </section>
+        </section>
+        <section id="tabs">
+            <menu>
+                <li><button id="btn-go-to-folders" title="Folders" onclick="tabsBtnGoToFoldersOnClick()"
+                        class="not-current-tab"></button></li>
+                <li><button id="btn-go-to-radios" title="Radios" onclick="tabsBtnGoToRadiosOnClick()"
+                        class="not-current-tab"></button></li>
+                <li><button id="btn-go-to-queue" title="Playing queue" onclick="tabsBtnGoToQueueOnClick()"
+                        class="not-current-tab"></button></li>
+            </menu>
+        </section>
+    </header>
+
+
+    <main>
+        <section id="folders-section">
+            <div class="tabTitleZone">
+                <span></span>
+                <h1>Folders</h1>
+                <span></span>
+            </div>
+            <section class="folder-tree">
+                <ul id="folder-list-template" class="folder-list">
+                    <li class="folder-item">
+                        <details ontoggle="folderDetailsOnToggle(this)">
+                            <summary>
+                                <div class="folder-title">
+                                    <span name="folder-title-text">Folder title</span>
+                                    <button name="addBtn" class="mini-action" onclick="folderAddOnClick(this)" title="Append all songs of folder in queue"></button>
+                                    <button name="playBtn" class="mini-action" onclick="folderPlayOnClick(this)" title="Clear queue and put all songs of folder in queue"></button>
+                                </div>
+                            </summary>
+                            <!-- Insert here an other "folder-list"-->
+                        </details>
+                    </li>
+                    <li class="folder-song-item">
+                        <span name="song-title-text" class="displayText">Song title</span>
+                        <button name="addBtn" class="mini-action" onclick="folderSongAddOnClick(this)" title="Append song in queue"></button>
+                        <button name="playBtn" class="mini-action" onclick="folderSongPlayOnClick(this)" title="Clear queue and play song"></button>
+                    </li>
+                </ul>
+            </section>
+        </section>
+
+        <section id="radios-section">
+            <div class="tabTitleZone">
+                <span></span>
+                <h1>Radios</h1>
+                <span></span>
+            </div>
+            <section class="folder-tree">
+                <ul id="radio-list-template" class="folder-list">
+                    <li class="folder-item">
+                        <details ontoggle="radioSelectionDetailsOnToggle(this)">
+                            <summary>
+                                <div class="folder-title">
+                                    <span name="folder-title-text">Folder title</span>
+                                </div>
+                            </summary>
+                            <!-- Insert here an other "folder-list"-->
+                        </details>
+                    </li>
+                    <li class="folder-song-item">
+                        <span name="song-title-text" class="displayText">Song title</span>
+                        <button name="playBtn" class="mini-action" onclick="radioBtnPlayOnClick(this)" title="Clear queue and play radio"></button>
+                    </li>
+                </ul>
+            </section>
+
+        </section>
+
+        <section id="queue-section">
+            <div class="tabTitleZone">
+                <span></span>
+                <h1>Queue</h1>
+                <span>
+                    <button name="clearBtn" title="Clear queue" onclick="queueClearBtnOnClick()"
+                        class="mini-action"></button>
+                </span>
+            </div>
+            <section id="queue-list">
+                <form id="queue-form">
+                <ul>
+                    <li id="queue-list-item-template" class="queue-item">
+                        <input type="radio" name="queue-current-item" id="item-queue-template-id" onchange="queueCurrentItemOnChange(this);"/>
+                        <label name="label-queue-current-item" for="item-queue-template-id" class="displayText"></label>
+                        <button name="removeBtn" class="mini-action"></button>
+                    </li>
+                </ul>
+                </form>
+            </section>
+        </section>
+    </main>
+    <div id="snackbar">Some text some message..</div>
+
+</body>
+<script>
+    global_api_url = "{{api_url}}";
+</script>
+<script src="js/utils.js"></script>
+<script src="js/control.js"></script>
+<script src="js/tabs.js"></script>
+<script src="js/queue.js"></script>
+<script src="js/radio.js"></script>
+<script src="js/folder.js"></script>
+<script src="js/common.js"></script>
+<script src="js/snackbar.js"></script>
+<script src="js/settings.js"></script>
+
+</html>
