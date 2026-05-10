@@ -15,41 +15,53 @@ class RadioUiConfig:
     __address: str
     __port: int
     __use_web_client: str # "True" or "False"
-    __webradios_pl_json_file: str
+    __file_config_path: str
+    __file_pl_config_path: str
 
     
-    def __init__(self, par_file_config_path: str = os.path.join("configuration","radioui.conf")):
+    def __init__(self, par_dir_config_path: str = ""):
         """
         Create a configuration object from the data in the file whose path is provided in the parameter 'par_file_config_path'.
         If the configuration file not exists, it will be created.
 
         Args:
-            par_file_config_path (str, optional): Configuration file path. Defaults to "".
+            par_dir_config_path (str, optional): Configuration dir path. Defaults to "__file__/configuration".
 
         """
         config_structure = configparser.ConfigParser()
         fileToSave = False
         
         ##############################
+        ## Initialize path
+        ##############################
+        var_dir_config_path = par_dir_config_path
+        if var_dir_config_path=="":
+            self.__file_config_path = "radioui.conf"
+            self.__file_pl_config_path = "webradios_pl_config.json"
+        else:
+            self.__file_config_path = os.path.join(par_dir_config_path,"radioui.conf")
+            self.__file_pl_config_path = os.path.join(par_dir_config_path,"webradios_pl_config.json")
+
+        ##############################
         ## Open config file
         ##############################
         try:
-            file_stream = open(par_file_config_path)
+            file_stream = open(self.__file_config_path)
             config_structure.read_file(file_stream)
             file_stream.close()
         except (FileNotFoundError, configparser.MissingSectionHeaderError) as fileError:
-            logging.warning("Error when reading file \"" + par_file_config_path + "\" : " + str(fileError))
+            logging.warning("Error when reading file \"" + self.__file_config_path + "\" : " + str(fileError))
             logging.warning("Creating new config file.")
             # Init file with default values
             config_structure.add_section('mpd.connexion')
 
             # Creating config file
-            var_dir_config = os.path.dirname(par_file_config_path)
+            var_dir_config = os.path.dirname(self.__file_config_path)
             if len(var_dir_config) > 0:
                 if not os.path.isdir(var_dir_config): # Si le répertoire du fichier n'existe pas
                     logging.warning("Creating new directory \"" + var_dir_config + "\"")
                     os.makedirs(name=var_dir_config, exist_ok=True)
-            file_stream = open(par_file_config_path, 'w')
+            file_stream = open(self.__file_config_path, 'w')
             config_structure.write(file_stream)
             file_stream.close()
             
@@ -73,14 +85,6 @@ class RadioUiConfig:
         
         if(self.__run_mode not in ("DEBUG","NORMAL")):
             raise RadioUiConfigError("\"run-mode\" option should be \"DEBUG\" or \"NORMAL\".")
-
-        try:
-            self.__webradios_pl_json_file = config_structure.get('global', 'webradios_pl_json_file')
-        except configparser.NoOptionError:
-            logging.warning("Creating webradios_pl_json_file option.")
-            self.__webradios_pl_json_file = "localhost"
-            config_structure.set('global', 'webradios_pl_json_file', os.path.join("configuration","webradios_pl_config.json"))
-            fileToSave = True
 
         ## Read mpd.connexion section
         if not config_structure.has_section('mpd.connexion'):
@@ -125,7 +129,7 @@ class RadioUiConfig:
         # Save file if it is modified
         ####################################
         if fileToSave:
-            file_stream = open(par_file_config_path, 'w')
+            file_stream = open(self.__file_config_path, 'w')
             config_structure.write(file_stream)
             file_stream.close()
     
@@ -145,7 +149,7 @@ class RadioUiConfig:
         json_webradios_pl = []
 
         try:
-            with open(self.__webradios_pl_json_file, 'r', encoding='utf-8') as file_pl_json:
+            with open(self.__file_pl_config_path, 'r', encoding='utf-8') as file_pl_json:
                 json_raw_data = json.load(file_pl_json)
 
             for json_item in json_raw_data:
@@ -153,7 +157,7 @@ class RadioUiConfig:
                     json_webradios_pl.append({"name" : json_item["name"], "filename" : json_item["filename"]})
 
         except FileNotFoundError as e:
-            logging.warning(f"Webradios playlists configuration file '{self.__webradios_pl_json_file}' not found. List is initialized as empty.")
+            logging.warning(f"Webradios playlists configuration file '{self.__file_pl_config_path}' not found. List is initialized as empty.")
         except Exception as e:
             raise RadioConfigWebradiosError("Error when loading all webradios playlists configuration.") from e
 

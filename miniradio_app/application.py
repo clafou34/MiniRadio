@@ -35,7 +35,7 @@ var_path_root = os.path.dirname(os.path.abspath(__file__))
 app = bottle.Bottle()
 
 # Get configuration
-varConfig = RadioUiConfig()
+varConfig = RadioUiConfig(os.path.join(var_path_root, "configuration"))
 
 # Set logging level 
 if(varConfig.getRunMode() == "DEBUG"):
