@@ -1,3 +1,6 @@
+# Architecture
+![Architecture schema](architecture.svg "MiniRadio Architecture").
+
 # Using Miniradio
 
 ## Installation
