@@ -1,5 +1,11 @@
 # Architecture
-![Architecture schema](architecture.svg "MiniRadio Architecture").
+![Architecture schema](architecture.svg "MiniRadio Architecture")
+
+MiniRadio requires a functional and properly configured MPD server with access to your MP3 file library and your playlists.
+
+It uses 2 pythons modules :
+* API framework Bottle : https://bottlepy.org/docs/dev/
+* Python client library for MPD : https://pypi.org/project/python-mpd2/
 
 # Using Miniradio
 
@@ -28,6 +34,9 @@ python3 $(dirname $(readlink -f $0))/miniradio_app/application.py
 ```
 
 * Save and make script executable : `chmod 755 start_miniradio.sh`
+
+## Configuration
+
 
 ## Manual execution
 Launch your script `start_miniradio.sh`.
