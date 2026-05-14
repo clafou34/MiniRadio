@@ -36,7 +36,26 @@ python3 $(dirname $(readlink -f $0))/miniradio_app/application.py
 * Save and make script executable : `chmod 755 start_miniradio.sh`
 
 ## Configuration
+The configuration of MiniRadio is found in the file `radioui.conf`, which is by default located in the `configuration` directory of the application's sources.
+Example :
+```
+[global]
+run-mode = DEBUG
+listening-port = 6809
 
+[mpd.connexion]
+mpd-address = localhost
+mpd-port = 6600
+
+[web.client]
+use-web-client = True
+```
+
+* `run-mode` can have 2 values : `DEBUG` for maximum information in standard error output, or `NORMAL` for minimization of output. Default is `NORMAL`.
+* `listening-port` : This is port use by MiniRadio for listening HTTP requests.
+* `mpd-address` : This is the adress (IP or domain name) where MPD listen. For connexion by socket on same host, you can put node name of abstract socket (ex : `/run/mpd/socket`). Default is 'localhost'.
+* `mpd-port` : Port on which MPD listen. Default is 6600.
+* `use-web-client` : Allow to activate web UI (value `True`) or inactivate it (value `False`). Default is `False`.
 
 ## Manual execution
 Launch your script `start_miniradio.sh`.
@@ -71,3 +90,13 @@ Replace `<your path>` and `<your user>` with your installation path and your exe
 
 * To check service
 `sudo systemctl status miniradio-webserver.service`
+
+## Access to MiniRadio
+
+The homepage is accessible at the address `http://<your-server-address>:<listening-port>/`.
+
+API is accessible at `http://<your-server-address>:<listening-port>/api/`.
+
+Web UI is accessible at `http://<your-server-address:listening-port>/webclient/`.
+
+Example : [http://localhost:6809/](http://localhost:6809/)

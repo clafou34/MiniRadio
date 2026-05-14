@@ -40,9 +40,11 @@ varConfig = RadioUiConfig(os.path.join(var_path_root, "configuration"))
 # Set logging level 
 if(varConfig.getRunMode() == "DEBUG"):
     logging.basicConfig(level=logging.DEBUG)
+else:
+    logging.basicConfig(level=logging.CRITICAL)
 
 # Get radio player connection
-var_radio_connexion = RadioConnection(varConfig.getAddress(), varConfig.getPort())
+var_radio_connexion = RadioConnection(varConfig.getMpdAddress(), varConfig.getMpdPort())
 var_radio_connexion.check_connection()
 
 # Get items display manager
@@ -90,4 +92,4 @@ def root_uri():
         url_api = var_url_root_api
         )
 
-app.run(host='0.0.0.0', port=6809)
+app.run(host='0.0.0.0', port=varConfig.getListeningPort())

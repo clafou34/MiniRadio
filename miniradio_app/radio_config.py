@@ -12,11 +12,12 @@ class RadioConfigWebradiosError(Exception):
 
 class RadioUiConfig:
     __run_mode: str # "DEBUG" or "NORMAL"
-    __address: str
-    __port: int
+    __mpd_address: str
+    __mpd_port: int
     __use_web_client: str # "True" or "False"
     __file_config_path: str
     __file_pl_config_path: str
+    __listening_port: int
 
     
     def __init__(self, par_dir_config_path: str = ""):
@@ -53,6 +54,7 @@ class RadioUiConfig:
             logging.warning("Error when reading file \"" + self.__file_config_path + "\" : " + str(fileError))
             logging.warning("Creating new config file.")
             # Init file with default values
+            config_structure.add_section('global')
             config_structure.add_section('mpd.connexion')
 
             # Creating config file
@@ -86,30 +88,43 @@ class RadioUiConfig:
         if(self.__run_mode not in ("DEBUG","NORMAL")):
             raise RadioUiConfigError("\"run-mode\" option should be \"DEBUG\" or \"NORMAL\".")
 
+        try:
+            self.__listening_port =  int(config_structure.get('global', 'listening-port'))
+        except configparser.NoOptionError:
+            logging.warning("Creating listening-port option.")
+            self.__listening_port = 6809
+            config_structure.set('global', 'listening-port', "6809")
+            fileToSave = True
+        except ValueError:
+            logging.warning("In config file, listening-port in not an integer. Setting default value 6809.")
+            self.__listening_port = 6809
+            config_structure.set('global', 'listening-port', "6809")
+            fileToSave = True
+
         ## Read mpd.connexion section
         if not config_structure.has_section('mpd.connexion'):
             config_structure.add_section('mpd.connexion')
             fileToSave = True
 
         try:
-            self.__address = config_structure.get('mpd.connexion', 'address')
+            self.__mpd_address = config_structure.get('mpd.connexion', 'mpd-address')
         except configparser.NoOptionError:
-            logging.warning("Creating address option.")
-            self.__address = "localhost"
-            config_structure.set('mpd.connexion', 'address', "localhost")
+            logging.warning("Creating mpd-address option.")
+            self.__mpd_address = "localhost"
+            config_structure.set('mpd.connexion', 'mpd-address', "localhost")
             fileToSave = True
             
         try:
-            self.__port =  int(config_structure.get('mpd.connexion', 'port'))
+            self.__mpd_port =  int(config_structure.get('mpd.connexion', 'mpd-port'))
         except configparser.NoOptionError:
-            logging.warning("Creating port option.")
-            self.__port = 6600
-            config_structure.set('mpd.connexion', 'port', "6600")
+            logging.warning("Creating mpd-port option.")
+            self.__mpd_port = 6600
+            config_structure.set('mpd.connexion', 'mpd-port', "6600")
             fileToSave = True
         except ValueError:
-            logging.warning("In config file, port in not an integer. Setting default value 6600.")
-            self.__port = 6600
-            config_structure.set('mpd.connexion', 'port', "6600")
+            logging.warning("In config file, mpd-port in not an integer. Setting default value 6600.")
+            self.__mpd_port = 6600
+            config_structure.set('mpd.connexion', 'mpd-port', "6600")
             fileToSave = True
 
         ## Read web.client section
@@ -136,11 +151,14 @@ class RadioUiConfig:
     def getRunMode(self) -> str:
         return self.__run_mode
     
-    def getAddress(self) -> str:
-        return self.__address
+    def getListeningPort(self) -> str:
+        return self.__listening_port
+
+    def getMpdAddress(self) -> str:
+        return self.__mpd_address
     
-    def getPort(self) -> str:
-        return self.__port
+    def getMpdPort(self) -> str:
+        return self.__mpd_port
     
     def getUseWebClient(self) -> bool :
         return self.__use_web_client == "True"
