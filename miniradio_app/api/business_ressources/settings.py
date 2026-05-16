@@ -3,7 +3,7 @@ import logging
 import traceback
 from api.utils.radio_settings import RadioSettings
 from api.utils.radio_playlists import RadioPlaylists
-from api.utils.radio_utils import generate_return_dict
+from api.utils.radio_utils import RadioUtils
 
 def setup_routes(app: bottle.Bottle, url_api_root: str, par_obj_radio_settings: RadioSettings, par_obj_radio_playlists: RadioPlaylists ):
 
@@ -28,7 +28,7 @@ def setup_routes(app: bottle.Bottle, url_api_root: str, par_obj_radio_settings: 
             try:
                 par_obj_radio_settings.refresh_db()
                 par_obj_radio_playlists.load_playlist()
-                var_return_json = generate_return_dict(True)
+                var_return_json = RadioUtils.generate_return_dict(True)
             except Exception as e:
                 var_error_message = "Error when refreshing database with filesystem changes."
                 logging.error(f"{var_error_message} : {traceback.format_exc()}")
@@ -48,7 +48,7 @@ def setup_routes(app: bottle.Bottle, url_api_root: str, par_obj_radio_settings: 
                     },
                 ]
             }
-            var_return_json = generate_return_dict(True,var_root_dict)
+            var_return_json = RadioUtils.generate_return_dict(True,var_root_dict)
 
         return var_return_json
 

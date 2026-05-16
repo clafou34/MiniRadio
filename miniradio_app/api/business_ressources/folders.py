@@ -4,7 +4,7 @@ import os
 import traceback
 from api.utils.radio_folders import RadioFolders, RadioFoldersNoExistError
 from api.utils.radio_queue import RadioQueueManager
-from api.utils.radio_utils import generate_return_dict, RadioItem, RadioFolder, RadioFolderContent
+from api.utils.radio_utils import RadioUtils
 from api.utils.radio_player import RadioPlayer
 from urllib.parse import urlparse
 
@@ -67,7 +67,7 @@ def setup_routes(app: bottle.Bottle, url_api_root: str, par_obj_radio_folders: R
                 if var_bool_play:
                     par_obj_radio_player.play()
                 
-                var_return_json = generate_return_dict(True)
+                var_return_json = RadioUtils.generate_return_dict(True)
             except Exception as e:
                 var_error_message = "Error when adding folder content to queue."
                 logging.error(f"{var_error_message} : {traceback.format_exc()}")
@@ -109,7 +109,7 @@ def setup_routes(app: bottle.Bottle, url_api_root: str, par_obj_radio_folders: R
                                                 "url_to_replace_and_play" : var_item_url + "?action=add-to-queue&replace=true&play=true",
                                             })
 
-                var_return_json = var_return_json = generate_return_dict(True, {"folders" : var_folders_dict, "items" : var_items_dict})
+                var_return_json = var_return_json = RadioUtils.generate_return_dict(True, {"folders" : var_folders_dict, "items" : var_items_dict})
             except Exception as e:
                 var_error_message = "Error when getting folders."
                 logging.error(f"{var_error_message} : {traceback.format_exc()}")

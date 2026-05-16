@@ -2,7 +2,7 @@ import traceback
 import logging
 import bottle
 import json
-from api.utils.radio_utils import generate_return_dict
+from api.utils.radio_utils import RadioUtils
 from api.utils.radio_connection import RadioConnection
 from urllib.parse import urljoin
 
@@ -51,7 +51,7 @@ def setup_routes(app: bottle.Bottle, url_api_root: str, par_obj_radio_connection
                 },
             ]
         }
-        var_return_json = generate_return_dict(True,var_root_dict)
+        var_return_json = RadioUtils.generate_return_dict(True,var_root_dict)
         
         return var_return_json
 

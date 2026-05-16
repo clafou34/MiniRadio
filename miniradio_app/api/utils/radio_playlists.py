@@ -1,10 +1,11 @@
 from mpd import MPDClient
 from radio_config import RadioUiConfig
 from api.utils.radio_connection import RadioConnection
-from api.utils.radio_utils import RadioItem
+from api.utils.radio_item import RadioItem
 from api.utils.radio_item_display_manager import ItemDisplayManager
 from urllib.parse import urlparse
 import time
+import logging
 
 class RadioPlaylistsError(Exception):
     pass
@@ -18,6 +19,8 @@ class RadioPlaylistsPlaylist:
 
 class RadioPlaylists:
     
+    __var_cache_retention:int = 600  # Cache retention duration is second
+
     def __init__(self, par_radio_connection: RadioConnection, par_item_display_manager: ItemDisplayManager, par_obj_config: RadioUiConfig):
         self.__var_mpd_client: MPDClient = par_radio_connection.get_mpd_client()
 
@@ -73,36 +76,39 @@ class RadioPlaylists:
             self.__current_playlists.sort(key=lambda obj: obj.name)
 
             # Get content of all playlists
-            self.__var_item_display_manager.set_stream_item_list(self.get_radio_stream_items())
+            self.__var_item_display_manager.set_stream_item_list(self.__filter_radio_stream_items(self.__current_playlists))
 
             # Set date of cache
             self.__var_cache_time = time.time()
             
         except Exception as e:
+            logging.error("Error when loading all playlists.")
             raise RadioPlaylistsError("Error when loading all playlists.") from e
     
     def __clear_cache(self):
         self.__current_playlists = None
 
     def __get_cached_playlist(self):
-        if (self.__current_playlists is None) or ((time.time() - self.__var_cache_time) > 600):
+        if (self.__current_playlists is None) or ((time.time() - self.__var_cache_time) > self.__var_cache_retention):
             self.load_playlist()
 
         return self.__current_playlists
 
-    def get_radio_stream_items(self):
+    def __filter_radio_stream_items(self, par_list_all_playlist: list[RadioItem]):
         """
-        Return a dictionary with list of RadioItem class objects which are stream. This stream are in type "webradio" playlists.
+        Return a list of RadioItem of type 'webradio' retrieved from the list provided as a parameter.
         List is indexed by url of stream.
+
+        Args:
+            par_list_all_playlist (list[RadioItem], mandatory): List of RadioItem to be filtered.
         
-        :return: Dictionary with list of RadioItem class objects which are stream.
+        :return: List of RadioItem class objects which are stream.
         :rtype: list[RadioItem]
         """
         var_stream_item_list = {}
-        var_all_playlist = self.__get_cached_playlist()
 
         try:
-            for var_playlist in var_all_playlist:
+            for var_playlist in par_list_all_playlist:
                 if var_playlist.type=="webradio":
                     var_songs_list = self.__var_mpd_client.listplaylistinfo(var_playlist.filename)
                     for var_song in var_songs_list:
@@ -159,6 +165,7 @@ class RadioPlaylists:
 
             return var_list_playlist
         except Exception as e:
+            logging.error("Error when loading all playlists.")
             raise RadioPlaylistsError("Error when getting all playlists.") from e
 
     def get_playlist(self, par_playlist_index: int):

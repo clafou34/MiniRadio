@@ -1,5 +1,5 @@
 from mpd import MPDClient, CommandError
-from api.utils.radio_utils import RadioItem
+from api.utils.radio_item import RadioItem
 from api.utils.radio_connection import RadioConnection
 from api.utils.radio_item_display_manager import ItemDisplayManager
 from urllib.parse import urlparse

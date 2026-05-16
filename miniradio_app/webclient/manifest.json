@@ -1,0 +1,27 @@
+{
+  "short_name": "MiniRadio",
+  "name": "MiniRadio",
+  "display": "fullscreen",
+  "orientation": "portrait",
+  "start_url": "/webclient",
+  "scope": "/webclient",
+  "background_color": "#000000",
+  "theme_color": "#1c8f1c",
+  "icons": [
+    {
+      "src": "img/launcher_icon_48-48.png",
+      "type": "image/png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "img/launcher_icon_96-96.png",
+      "type": "image/png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "img/launcher_icon_192-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ]
+}

@@ -1,6 +1,5 @@
 from mpd import MPDClient, CommandError
 import logging
-from api.utils.radio_utils import RadioItem
 from api.utils.radio_connection import RadioConnection
 
 class RadioPlayerError(Exception):

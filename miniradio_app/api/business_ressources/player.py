@@ -1,6 +1,6 @@
 import bottle
 from api.utils.radio_player import RadioPlayer, RadioPlayerBadSongIdError
-from api.utils.radio_utils import generate_return_dict
+from api.utils.radio_utils import RadioUtils
 from api.utils.radio_queue import RadioQueueManager
 import logging
 import traceback
@@ -37,7 +37,7 @@ def setup_routes(app: bottle.Bottle, url_api_root: str, par_obj_radio_player: Ra
         if var_action == "toggle-play-pause":
             try:
                 par_obj_radio_player.toggle_play_pause()
-                var_return_json = generate_return_dict(True)
+                var_return_json = RadioUtils.generate_return_dict(True)
             except Exception as e:
                 var_error_message = "Error when toggling play/pause."
                 logging.error(f"{var_error_message} : {traceback.format_exc()}")
@@ -47,9 +47,9 @@ def setup_routes(app: bottle.Bottle, url_api_root: str, par_obj_radio_player: Ra
         elif var_action == "next":
             try:
                 if par_obj_radio_player.next(): 
-                    var_return_json = generate_return_dict(True)
+                    var_return_json = RadioUtils.generate_return_dict(True)
                 else:
-                    var_return_json = generate_return_dict(True,None,"It is impossible to go to the next song.")
+                    var_return_json = RadioUtils.generate_return_dict(True,None,"It is impossible to go to the next song.")
             except Exception as e:
                 var_error_message = "Error when going to the next song."
                 logging.error(f"{var_error_message} : {traceback.format_exc()}")
@@ -59,9 +59,9 @@ def setup_routes(app: bottle.Bottle, url_api_root: str, par_obj_radio_player: Ra
         elif var_action == "previous":
             try:
                 if par_obj_radio_player.previous():
-                    var_return_json = generate_return_dict(True)
+                    var_return_json = RadioUtils.generate_return_dict(True)
                 else:
-                    var_return_json = generate_return_dict(True,None,"It is impossible to go to the previous song.")
+                    var_return_json = RadioUtils.generate_return_dict(True,None,"It is impossible to go to the previous song.")
             except Exception as e:
                 var_error_message = "Error when going to the previous song."
                 logging.error(f"{var_error_message} : {traceback.format_exc()}")
@@ -71,9 +71,9 @@ def setup_routes(app: bottle.Bottle, url_api_root: str, par_obj_radio_player: Ra
         elif var_action == "play":
             try:
                 par_obj_radio_player.play(var_id)
-                var_return_json = generate_return_dict(True)
+                var_return_json = RadioUtils.generate_return_dict(True)
             except RadioPlayerBadSongIdError as e:
-                var_return_json = generate_return_dict(True,None,"Song id is incorrect.")
+                var_return_json = RadioUtils.generate_return_dict(True,None,"Song id is incorrect.")
             except Exception as e:
                 var_error_message = "Error when starting song."
                 logging.error(f"{var_error_message} : {traceback.format_exc()}")
@@ -83,7 +83,7 @@ def setup_routes(app: bottle.Bottle, url_api_root: str, par_obj_radio_player: Ra
         elif var_action == "stop":
             try:
                 par_obj_radio_player.stop()
-                var_return_json = generate_return_dict(True)
+                var_return_json = RadioUtils.generate_return_dict(True)
             except Exception as e:
                 var_error_message = "Error when stopping song."
                 logging.error(f"{var_error_message} : {traceback.format_exc()}")
@@ -114,7 +114,7 @@ def setup_routes(app: bottle.Bottle, url_api_root: str, par_obj_radio_player: Ra
                         },
                 ]
             }
-            var_return_json = generate_return_dict(True,var_root_dict)
+            var_return_json = RadioUtils.generate_return_dict(True,var_root_dict)
 
         
         return var_return_json
@@ -155,7 +155,7 @@ def setup_routes(app: bottle.Bottle, url_api_root: str, par_obj_radio_player: Ra
                 "queue_version" : var_status.queue_version,
                 "db_refreshing" : "true" if var_status.db_refreshing else "false"
             }
-            var_return_json = generate_return_dict(True, var_status_dict)
+            var_return_json = RadioUtils.generate_return_dict(True, var_status_dict)
         except Exception as e:
             var_error_message = "Error when getting status."
             logging.error(f"{var_error_message} : {traceback.format_exc()}")

@@ -1,8 +1,6 @@
 import bottle
 from api.utils.radio_queue import RadioQueueManager, RadioQueueNotFoundError
-from api.utils.radio_connection import RadioConnection
-from api.utils.radio_utils import generate_return_dict, RadioItem
-from api.utils.radio_playlists import RadioPlaylists
+from api.utils.radio_utils import RadioUtils
 import logging
 import traceback
 
@@ -37,7 +35,7 @@ def setup_routes(app: bottle.Bottle, url_api_root: str, par_obj_radio_queue: Rad
                 },
             ]
         }
-        var_return_json = generate_return_dict(True,var_root_dict)
+        var_return_json = RadioUtils.generate_return_dict(True,var_root_dict)
         return var_return_json
 
     
@@ -76,7 +74,7 @@ def setup_routes(app: bottle.Bottle, url_api_root: str, par_obj_radio_queue: Rad
                                                 "mr_playlist_name" : var_obj_queue_item.queued_item.mr_playlist_name
                                                 }})
                 
-                    var_return_json = generate_return_dict(True,{"items" : var_items_dict})
+                    var_return_json = RadioUtils.generate_return_dict(True,{"items" : var_items_dict})
             except Exception as e:
                 var_error_message = f"Error when getting items of queue'."
                 logging.error(f"{var_error_message} : {traceback.format_exc()}")
@@ -84,7 +82,7 @@ def setup_routes(app: bottle.Bottle, url_api_root: str, par_obj_radio_queue: Rad
         else:
             try:
                 par_obj_radio_queue.clear()
-                var_return_json = generate_return_dict(True)
+                var_return_json = RadioUtils.generate_return_dict(True)
             except Exception as e:
                 var_error_message = f"Error when clearing queue'."
                 logging.error(f"{var_error_message} : {traceback.format_exc()}")
@@ -119,7 +117,7 @@ def setup_routes(app: bottle.Bottle, url_api_root: str, par_obj_radio_queue: Rad
                                             "mr_playlist_name" : var_obj_queue_item.queued_item.mr_playlist_name
                                             }}
             
-            var_return_json = generate_return_dict(True, {"item" : var_item_dict})
+            var_return_json = RadioUtils.generate_return_dict(True, {"item" : var_item_dict})
         except RadioQueueNotFoundError:
             bottle.abort(404)
         except Exception as e:
@@ -137,7 +135,7 @@ def setup_routes(app: bottle.Bottle, url_api_root: str, par_obj_radio_queue: Rad
         try:
             par_obj_radio_queue.delete_item(item_id)
             
-            var_return_json = generate_return_dict(True)
+            var_return_json = RadioUtils.generate_return_dict(True)
         except RadioQueueNotFoundError:
             bottle.abort(404)
         except Exception as e:

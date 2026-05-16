@@ -1,6 +1,6 @@
 import bottle
 from api.utils.radio_playlists import RadioPlaylists
-from api.utils.radio_utils import generate_return_dict, remove_url_last_part
+from api.utils.radio_utils import RadioUtils
 from api.utils.radio_queue import RadioQueueManager
 from api.utils.radio_player import RadioPlayer
 import logging
@@ -47,7 +47,7 @@ def setup_routes(app: bottle.Bottle, url_api_root: str, par_obj_radio_playlists:
                 },
             ]
         }
-        var_return_json = generate_return_dict(True,var_root_dict)
+        var_return_json = RadioUtils.generate_return_dict(True,var_root_dict)
         return var_return_json
 
 
@@ -66,7 +66,7 @@ def setup_routes(app: bottle.Bottle, url_api_root: str, par_obj_radio_playlists:
         # Récupération de la racine de l'url
         var_parsed_url = urlparse(bottle.request.url)
         var_base_url = var_parsed_url.scheme + "://" + var_parsed_url.netloc + var_parsed_url.path
-        
+
         try:
             var_lst_obj_playlists = par_obj_radio_playlists.get_playlists(var_selected_type)
             var_playlists_dict=[]
@@ -78,10 +78,10 @@ def setup_routes(app: bottle.Bottle, url_api_root: str, par_obj_radio_playlists:
                         "name" : var_obj_playlist.name,
                         "filename" : var_obj_playlist.filename,
                         "type" : var_obj_playlist.type,
-                        "url" : remove_url_last_part(var_base_url) + "/" + str(var_obj_playlist.index)
+                        "url" : RadioUtils.remove_url_last_part(var_base_url) + "/" + str(var_obj_playlist.index)
                         })
-            
-            var_return_json = generate_return_dict(True,{"playlists_type" : var_selected_type, "playlists" : var_playlists_dict})
+
+            var_return_json = RadioUtils.generate_return_dict(True,{"playlists_type" : var_selected_type, "playlists" : var_playlists_dict})
             
         except Exception as e:
             var_error_message = "Error when getting all playlists."
@@ -107,7 +107,7 @@ def setup_routes(app: bottle.Bottle, url_api_root: str, par_obj_radio_playlists:
                                         "items_url" : bottle.request.url.strip("/") + "/items"
                                         }
             
-                var_return_json = generate_return_dict(True,{"playlist" : var_playlist_dict})
+                var_return_json = RadioUtils.generate_return_dict(True,{"playlist" : var_playlist_dict})
         except Exception as e:
             var_error_message = f"Error when getting stored playlists '{str(playlist_index)}'."
             logging.error(f"{var_error_message} : {traceback.format_exc()}")
@@ -153,7 +153,7 @@ def setup_routes(app: bottle.Bottle, url_api_root: str, par_obj_radio_playlists:
                                             })
                     var_index_in_playlist = var_index_in_playlist + 1
             
-                var_return_json = generate_return_dict(True,{"items" : var_items_dict})
+                var_return_json = RadioUtils.generate_return_dict(True,{"items" : var_items_dict})
         except Exception as e:
             var_error_message = f"Error when getting items of stored playlists '{str(playlist_index)}'."
             logging.error(f"{var_error_message} : {traceback.format_exc()}")
@@ -199,7 +199,7 @@ def setup_routes(app: bottle.Bottle, url_api_root: str, par_obj_radio_playlists:
                     par_obj_radio_queue.add_radio_item(var_item)
                     if var_bool_play:
                         par_obj_radio_player.play()
-                    var_return_json = generate_return_dict(True)
+                    var_return_json = RadioUtils.generate_return_dict(True)
             except Exception as e:
                 var_error_message = f"Error when adding item of stored playlist to queue."
                 logging.error(f"{var_error_message} : {traceback.format_exc()}")
@@ -226,7 +226,7 @@ def setup_routes(app: bottle.Bottle, url_api_root: str, par_obj_radio_playlists:
                                         "item_url_to_replace_and_play" : var_item_url + "?action=add-to-queue&replace=true&play=true",
                                     }
                 
-                    var_return_json = generate_return_dict(True,{"item" : var_item_dict})
+                    var_return_json = RadioUtils.generate_return_dict(True,{"item" : var_item_dict})
                 except Exception as e:
                     var_error_message = f"Error when getting item of stored playlists '{str(playlist_index)}'."
                     logging.error(f"{var_error_message} : {traceback.format_exc()}")
