@@ -33,4 +33,10 @@ if(varConfig.getUseWebClient()):
 # Initialize root page
 RadioRootApp.initialize(app, varConfig)
 
-app.run(host='0.0.0.0', port=varConfig.getListeningPort())
+app.run(
+    server='gunicorn',
+    host=varConfig.getListeningHost(),
+    port=varConfig.getListeningPort(),
+    keyfile=varConfig.getListeningHttpsKeyFile(),
+    certfile=varConfig.getListeningHttpsCertFile()
+          )

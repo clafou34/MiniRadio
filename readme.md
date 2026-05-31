@@ -17,12 +17,18 @@ It uses 2 pythons modules :
 
 
 * Create virtual environnement
-`python3 -m venv <your path>/MiniRadio/venv`
-`source <your path>/MiniRadio/venv/bin/activate`
+```
+python3 -m venv <your path>/MiniRadio/venv
+source <your path>/MiniRadio/venv/bin/activate
+```
 
 * Install dependences
-`pip install bottle`
-`pip install python-mpd2`
+```
+pip install bottle
+pip install python-mpd2
+pip install gunicorn
+```
+
 
 * Create launcher script `start_miniradio.sh` in `<your path>/MiniRadio`
 
@@ -41,7 +47,10 @@ Example :
 ```
 [global]
 run-mode = DEBUG
+listening-host = 0.0.0.0
 listening-port = 6809
+listening-https-keyfile = 
+listening-https-certfile =
 
 [mpd.connexion]
 mpd-address = localhost
@@ -52,7 +61,10 @@ use-web-client = True
 ```
 
 * `run-mode` can have 2 values : `DEBUG` for maximum information in standard error output, or `NORMAL` for minimization of output. Default is `NORMAL`.
-* `listening-port` : This is port use by MiniRadio for listening HTTP requests.
+* `listening-host` : This is IP address for listening HTTP/HTTPS request (default : 0.0.0.0 ==> for listening on all IP interfaces of host).
+* `listening-port` : This is port use by MiniRadio for listening HTTP requests (default : 6809)
+* `listening-https-keyfile` : If you want the application to be secured by HTTPS, then enter the path to the file containing the private key in this option. By default, this option is empty, which causes the application to start without HTTPS.
+* `listening-https-certfile` : If you want the application to be secured by HTTPS, then enter the path to the file containing the certificate in this option. By default, this option is empty, which causes the application to start without HTTPS.
 * `mpd-address` : This is the adress (IP or domain name) where MPD listen. For connexion by socket on same host, you can put node name of abstract socket (ex : `/run/mpd/socket`). Default is 'localhost'.
 * `mpd-port` : Port on which MPD listen. Default is 6600.
 * `use-web-client` : Allow to activate web UI (value `True`) or inactivate it (value `False`). Default is `False`.

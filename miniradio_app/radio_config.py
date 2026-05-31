@@ -18,6 +18,9 @@ class RadioUiConfig:
     __file_config_path: str
     __file_pl_config_path: str
     __listening_port: int
+    __listening_host: str
+    __listening_https_keyfile: str
+    __listening_https_certfile: str
 
     
     def __init__(self, par_dir_config_path: str = ""):
@@ -89,6 +92,14 @@ class RadioUiConfig:
             raise RadioUiConfigError("\"run-mode\" option should be \"DEBUG\" or \"NORMAL\".")
 
         try:
+            self.__listening_host =  config_structure.get('global', 'listening-host')
+        except configparser.NoOptionError:
+            logging.warning("Creating listening-host option.")
+            self.__listening_host = "0.0.0.0"
+            config_structure.set('global', 'listening-host', "0.0.0.0")
+            fileToSave = True
+
+        try:
             self.__listening_port =  int(config_structure.get('global', 'listening-port'))
         except configparser.NoOptionError:
             logging.warning("Creating listening-port option.")
@@ -99,6 +110,22 @@ class RadioUiConfig:
             logging.warning("In config file, listening-port in not an integer. Setting default value 6809.")
             self.__listening_port = 6809
             config_structure.set('global', 'listening-port', "6809")
+            fileToSave = True
+
+        try:
+            self.__listening_https_keyfile =  config_structure.get('global', 'listening-https-keyfile')
+        except configparser.NoOptionError:
+            logging.warning("Creating listening-https-keyfile option.")
+            self.__listening_https_keyfile = ""
+            config_structure.set('global', 'listening-https-keyfile', "")
+            fileToSave = True
+
+        try:
+            self.__listening_https_certfile =  config_structure.get('global', 'listening-https-certfile')
+        except configparser.NoOptionError:
+            logging.warning("Creating listening-https-certfile option.")
+            self.__listening_https_certfile = ""
+            config_structure.set('global', 'listening-https-certfile', "")
             fileToSave = True
 
         ## Read mpd.connexion section
@@ -151,15 +178,24 @@ class RadioUiConfig:
     def getRunMode(self) -> str:
         return self.__run_mode
     
+    def getListeningHost(self) -> str:
+        return self.__listening_host
+
     def getListeningPort(self) -> str:
         return self.__listening_port
+
+    def getListeningHttpsKeyFile(self) -> str:
+        return self.__listening_https_keyfile
+
+    def getListeningHttpsCertFile(self) -> str:
+        return self.__listening_https_certfile
 
     def getMpdAddress(self) -> str:
         return self.__mpd_address
     
     def getMpdPort(self) -> str:
         return self.__mpd_port
-    
+
     def getUseWebClient(self) -> bool :
         return self.__use_web_client == "True"
     
