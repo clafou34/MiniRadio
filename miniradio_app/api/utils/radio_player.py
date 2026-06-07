@@ -18,6 +18,7 @@ class RadioPlayerStatus:
         self.duration: float
         self.queue_version: int = 0
         self.db_refreshing: bool = False
+        self.volume: int = None
 
 class RadioPlayer:  
     def __init__(self, par_radio_connection: RadioConnection):
@@ -64,6 +65,10 @@ class RadioPlayer:
                 var_player_status.db_refreshing = True
             else:
                 var_player_status.db_refreshing = False
+            if 'volume' in var_dict_status:
+                var_player_status.volume = int(var_dict_status['volume'])
+            else:
+                var_player_status.volume = 0
         except Exception as e:
             raise RadioPlayerError("Error when getting player status.") from e
             
@@ -132,3 +137,12 @@ class RadioPlayer:
             self.__var_mpd_client.stop()
         except Exception as e:
             raise RadioPlayerError("Error when stopping song.") from e
+        
+    def set_volume_range(self, par_range: int =0):
+        if par_range < 0 or par_range > 100:
+            raise RadioPlayerError("Error when changing volume. Volume range must be between 0 an 100.")
+
+        try:
+            self.__var_mpd_client.setvol(par_range)
+        except Exception as e:
+            raise RadioPlayerError("Error when changing volume.") from e        

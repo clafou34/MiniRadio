@@ -110,8 +110,16 @@ def setup_routes(app: bottle.Bottle, url_api_root: str, par_obj_radio_player: Ra
                         "uri" : url_api_root + "/player/status",
                         "url" : bottle.request.url.strip("/") + "/status",
                         "methods" : "GET",
-                        "description" : "Return player's status with several attributes : state, playlistlength, current_song_number, elapsed, duration, current item datas."
+                        "description" : "Return player's status with several attributes : state, playlistlength, current_song_number, elapsed, duration, current item, volume datas."
                         },
+                    {
+                        "name" : "Volume",
+                        "uri" : url_api_root + "/player/volume",
+                        "url" : bottle.request.url.strip("/") + "/volume",
+                        "methods" : "GET, POST",
+                        "description" : "Allow to manipulate sound volume. If no parameter is provided, return current volume range (0-100).",
+                        "action=set-range&range=<xxx>" : "Change volume range to <xxx> value. This value must be between 0 and 100.",
+                    }
                 ]
             }
             var_return_json = RadioUtils.generate_return_dict(True,var_root_dict)
@@ -153,7 +161,8 @@ def setup_routes(app: bottle.Bottle, url_api_root: str, par_obj_radio_player: Ra
                 "elapsed" : var_status.elapsed,
                 "duration" : var_status.duration,
                 "queue_version" : var_status.queue_version,
-                "db_refreshing" : "true" if var_status.db_refreshing else "false"
+                "db_refreshing" : "true" if var_status.db_refreshing else "false",
+                "volume" : var_status.volume
             }
             var_return_json = RadioUtils.generate_return_dict(True, var_status_dict)
         except Exception as e:
@@ -163,4 +172,54 @@ def setup_routes(app: bottle.Bottle, url_api_root: str, par_obj_radio_player: Ra
 
         return var_return_json
 
-    
+    @app.route(url_api_root + '/player/volume/', method=['GET','POST'])
+    @app.route(url_api_root + '/player/volume', method=['GET','POST'])
+    def volume():
+        var_return_json = {}
+
+        logging.error("Test")
+
+        posted_data = bottle.request.json
+        if(posted_data is None):
+            posted_data = {}
+
+        # Get parameter action
+        var_action = ""
+        if("action" in posted_data):
+            var_action = posted_data.get('action')
+        else:
+            var_param_action = bottle.request.params.get("action")
+            if(var_param_action is not None):
+                var_action = var_param_action
+
+        # Get range
+        var_range = 0
+        if("range" in posted_data):
+            var_range = int(posted_data.get('range'))
+        else:
+            var_param_range = bottle.request.params.get("range")
+            if(var_param_range is not None):
+                var_range = int(var_param_range)
+
+        # If action is "set-range"
+        if var_action == "set-range":
+            try:
+                par_obj_radio_player.set_volume_range(var_range)
+                var_return_json = RadioUtils.generate_return_dict(True)
+            except Exception as e:
+                var_error_message = "Error when setting volume range."
+                logging.error(f"{var_error_message} : {traceback.format_exc()}")
+                bottle.abort(500,var_error_message)
+
+        # If there is no action or an invalid action, then getting volume
+        else:
+            # Get status
+            var_status = par_obj_radio_player.get_status()
+
+            # Make result
+            var_status_dict = {
+                "volume" : var_status.volume
+            }
+            var_return_json = RadioUtils.generate_return_dict(True, var_status_dict)
+
+        return var_return_json
