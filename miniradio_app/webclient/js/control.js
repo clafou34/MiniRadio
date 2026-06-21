@@ -1,6 +1,8 @@
 // Current queue version for detect modification
 var control_queue_version = 0;
 
+var control_volume_slider_using = false;
+
 /************************************
  * 
  *  Event manager at page loading.
@@ -148,11 +150,12 @@ function controlShowStatus(parStatusJson) {
     document.getElementById("current-item-id").value = var_current_item_id
 
     // Set control volume position
-    if("volume" in parStatusJson) {
+    if(("volume" in parStatusJson)&&(!control_volume_slider_using)) {
         varIntVolume = Number(parStatusJson.volume);
         if(!isNaN(varIntVolume))
             controlVolumeSetPosition(varIntVolume);
     }
+    controlVolumeAdjustTrack();
 
 
     // Check the current item in queue
@@ -164,6 +167,14 @@ function controlShowStatus(parStatusJson) {
  *  Volume management
  * 
  ************************************/
+function controlVolumeSliderOnMouseDown() {
+    control_volume_slider_using = true;
+}
+
+function controlVolumeSliderOnMouseUp() {
+    control_volume_slider_using = false;
+}
+
 
 function controlVolumeSliderOnChange(parValue) {
     console.log("controlVolumeSliderOnChange");
