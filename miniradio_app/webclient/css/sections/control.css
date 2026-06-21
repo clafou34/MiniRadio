@@ -2,7 +2,7 @@
     padding-top: 0.5em;
     padding-bottom: 0.5em;
     padding-left: 1em;
-    padding-right: 1em;
+    /*padding-right: 1em;*/
 }
 
 #control h1 {
@@ -103,4 +103,68 @@
 
 #current-item-display > div#current-item-complement {
     font-size: 90%;
+}
+
+#control-root-grid {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: auto 40px;
+    column-gap: 5px;
+}
+
+#control-volume {
+    grid-row: 1 / span 2;
+    display: flex;
+    position: relative;
+    /*justify-content: center;
+    align-items: center;*/
+}
+
+/******************
+   Volume slider 
+*******************/
+
+#volume-slider {
+    position: absolute;
+    bottom: 0;
+    left: 15px;
+    margin: 0;
+    writing-mode: vertical-lr;
+    direction: rtl;
+    height: 90px;
+    width: 12px;
+    -webkit-appearance: none;
+    background: rgba(0, 0 , 0 , 0);
+    border-radius: 12px;
+    border : 2px groove var(--display-text-border-color);
+}
+
+#volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 21px;
+  height: 14px;
+  border-radius: 2px;
+  background: var(--btn-text-color);
+  cursor: pointer;
+  border: 2px outset var(--slider-thumb-border-color);
+}
+
+#volume-slider::-moz-range-thumb {
+    width: 17px;
+    height: 10px;
+    border-radius: 2px;
+    background: var(--btn-text-color);
+    cursor: pointer;
+    border: 2px outset var(--slider-thumb-border-color);
+}
+
+#volume-height {
+    position: absolute;
+    bottom: 1px;
+    left: 16px;
+    width: 10px;
+    height: 45px;
+    background: var(--slider-track-color);
+    border-radius: 0 0 12px 12px;
 }

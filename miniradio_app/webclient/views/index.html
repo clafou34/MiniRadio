@@ -24,28 +24,34 @@
         <section id="control">
             <h1>Control</h1>
             <input type="hidden" id="current-item-id"\>
-            <div id="current-item-display">
-                <div id="current-item-title"></div>
-                <div id="current-item-complement"></div>
+            <div id="control-root-grid">
+                <div id="current-item-display">
+                    <div id="current-item-title"></div>
+                    <div id="current-item-complement"></div>
+                </div>
+                <section id="controlbar">
+                    <div id="control-previous">
+                        <button type="button" onclick="controlBtnPreviousOnClick()" title="Previous song"></button>
+                    </div>
+                    <div id="control-play-pause">
+                        <button type="button" onmousedown="controlBtnPlayPauseOnClick()" title="Play or pause" class="control-play-btn"></button>
+                    </div>
+                    <div id="control-next">
+                        <button type="button" onclick="controlBtnNextOnClick()" title="Next song"></button>
+                    </div>
+                    <div id="control-settings">
+                        <button type="button" title="Settings" id="control-settings-btn"></button>
+                        <menu id="settings-drop-down" class="drop_down_list">
+                            <li><button onclick="settingsRefreshDbOnClick()" title="Refresh folder database with filesystem content">Refresh database</button></li>
+                            <li><button onclick="settingsToggleExpertMode()" title="Set the expert mode to be able to modify some elements of the database.">Expert mode</button></li>
+                        </menu>
+                    </div>
+                </section>
+                <div id="control-volume">
+                    <div id="volume-height"></div>
+                    <input id="volume-slider" type="range" min="0" max="100" step="1" onchange="controlVolumeSliderOnChange(this.value)"" oninput="controlVolumeSliderOnInput(this.value)"/>
+                </div>
             </div>
-            <section id="controlbar">
-                <div id="control-previous">
-                    <button type="button" onclick="controlBtnPreviousOnClick()" title="Previous song"></button>
-                </div>
-                <div id="control-play-pause">
-                    <button type="button" onmousedown="controlBtnPlayPauseOnClick()" title="Play or pause" class="control-play-btn"></button>
-                </div>
-                <div id="control-next">
-                    <button type="button" onclick="controlBtnNextOnClick()" title="Next song"></button>
-                </div>
-                <div id="control-settings">
-                    <button type="button" title="Settings" id="control-settings-btn"></button>
-                    <menu id="settings-drop-down" class="drop_down_list">
-                        <li><button onclick="settingsRefreshDbOnClick()" title="Refresh folder database with filesystem content">Refresh database</button></li>
-                        <li><button onclick="settingsToggleExpertMode()" title="Set the expert mode to be able to modify some elements of the database.">Expert mode</button></li>
-                    </menu>
-                </div>
-            </section>
         </section>
         <section id="tabs">
             <menu>
