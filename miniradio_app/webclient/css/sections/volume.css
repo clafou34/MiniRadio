@@ -1,0 +1,77 @@
+div#control-volume {
+    position: relative;
+}
+
+div#volume-drop-down {
+    width: 80px;
+    height: 260px;
+    background-color: var(--primary-bg-color);
+    z-index:1;
+}
+
+
+/******************
+   Volume slider 
+*******************/
+#volume-title {
+    font-weight: bold;
+    font-size: 16px;
+    width:100%;
+    display:block;
+    text-align: center;
+    margin-top: 4px;
+}
+
+#volume-slider {
+    position: absolute;
+    bottom: 40px;
+    left: 31px;
+    margin: 0;
+    writing-mode: vertical-lr;
+    direction: rtl;
+    height: 180px;
+    width: 18px;
+    -webkit-appearance: none;
+    background: rgba(0, 0 , 0 , 0);
+    border-radius: 12px;
+    border : 2px groove var(--display-text-border-color);
+}
+
+#volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 29px;
+  height: 19px;
+  border-radius: 2px;
+  background: var(--btn-text-color);
+  cursor: pointer;
+  border: 2px outset var(--slider-thumb-border-color);
+}
+
+#volume-slider::-moz-range-thumb {
+    width: 25px;
+    height: 15px;
+    border-radius: 2px;
+    background: var(--btn-text-color);
+    cursor: pointer;
+    border: 2px outset var(--slider-thumb-border-color);
+}
+
+#volume-height {
+    position: absolute;
+    bottom: 41px;
+    left: 32px;
+    width: 16px;
+    background: var(--slider-track-color);
+    border-radius: 0 0 12px 12px;
+}
+
+#volume-percentage {
+    position: absolute;
+    display:block;
+    bottom: 12px;
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    color: var(--drop-down-text-color)
+}

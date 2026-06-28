@@ -10,4 +10,6 @@ function commonBodyOnLoad() {
     tabsShowCurrent();
 
     settingsOnLoad();
+
+    volumeOnLoad();
 }

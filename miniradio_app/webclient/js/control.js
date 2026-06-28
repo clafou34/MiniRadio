@@ -1,8 +1,6 @@
 // Current queue version for detect modification
 var control_queue_version = 0;
 
-var control_volume_slider_using = false;
-
 /************************************
  * 
  *  Event manager at page loading.
@@ -103,10 +101,12 @@ function controlShowStatus(parStatusJson) {
     if (parStatusJson.state) {
         varBtnPlayPauseSong = document.querySelector("#control-play-pause > button");
         if (parStatusJson.state == "play") {
-            varBtnPlayPauseSong.setAttribute("class", "control-pause-btn");
+            varBtnPlayPauseSong.classList.remove("control-play-btn");
+            varBtnPlayPauseSong.classList.add("control-pause-btn");
         }
         else {
-            varBtnPlayPauseSong.setAttribute("class", "control-play-btn");
+            varBtnPlayPauseSong.classList.remove("control-pause-btn");
+            varBtnPlayPauseSong.classList.add("control-play-btn");
         }
     }
 
@@ -150,83 +150,17 @@ function controlShowStatus(parStatusJson) {
     document.getElementById("current-item-id").value = var_current_item_id
 
     // Set control volume position
-    if(("volume" in parStatusJson)&&(!control_volume_slider_using)) {
+    if("volume" in parStatusJson) {
         varIntVolume = Number(parStatusJson.volume);
         if(!isNaN(varIntVolume))
-            controlVolumeSetPosition(varIntVolume);
+            volumeSetPosition(varIntVolume);
     }
-    controlVolumeAdjustTrack();
-
 
     // Check the current item in queue
     queueCheckCurrentItem();
 }
 
-/************************************
- * 
- *  Volume management
- * 
- ************************************/
-function controlVolumeSliderOnMouseDown() {
-    control_volume_slider_using = true;
-}
-
-function controlVolumeSliderOnMouseUp() {
-    control_volume_slider_using = false;
-}
 
 
-function controlVolumeSliderOnChange(parValue) {
-    console.log("controlVolumeSliderOnChange");
-    controlSetPlayerVolume(parValue);
-}
 
-function controlVolumeSliderOnInput(parValue) {
-    controlVolumeAdjustTrack();
-}
 
-/**
- * Sets the slider value with the percentage provided as a parameter. 
- * @param {Int} parIntVolumePerCent 
- */
-function controlVolumeSetPosition(parIntVolumePerCent) {
-    if (document.getElementById("volume-slider").value!=parIntVolumePerCent) {
-        console.log("controlVolumeSetPosition : parIntVolumePerCent=" + parIntVolumePerCent + "    document.getElementById(\"volume-slider\").value=" + document.getElementById("volume-slider").value);
-        document.getElementById("volume-slider").value = parIntVolumePerCent;
-        controlVolumeAdjustTrack();
-    }
-}
-
-/**
- * Synchronize colored track height of the slider with de position of the slider.
- */
-function controlVolumeAdjustTrack() {
-    document.getElementById("volume-height").style.height = Math.round(((document.getElementById("volume-slider").offsetHeight - 2) * document.getElementById("volume-slider").value) / 100).toString() + "px";
-}
-
-/**
- * Change player volume on server.
- * @param {Int} parIntVolumePercent Volume between 0 and 100.
- */
-function controlSetPlayerVolume(parIntVolumePercent) {
-    const params = new URLSearchParams();
-
-    if(parIntVolumePercent<0 || parIntVolumePercent>100) {
-        throw new RangeError("In controlSetPlayerVolume, parmameter must be an integer between 0 and 100.");
-    }
-
-    params.append("action", "set-range");
-    params.append("range", Math.round(parIntVolumePercent).toString());
-    fetch(utilsApiRoot() + `/player/volume?${params}`, {method: 'POST', headers: { 'Accept': 'application/json' }})
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Error when setting volume to this value : ' + parIntVolumePercent);
-            }
-            return response.json()
-        })
-        .then(data => {
-            if (!data.success) {
-                throw new Error('Error when setting volume to this value : ' + parIntVolumePercent + '. Error is returned by server.');
-            }
-        });
-}

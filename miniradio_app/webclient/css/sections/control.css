@@ -1,8 +1,8 @@
 #control {
-    padding-top: 0.5em;
-    padding-bottom: 0.5em;
-    padding-left: 1em;
-    /*padding-right: 1em;*/
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
 
 #control h1 {
@@ -11,7 +11,18 @@
     margin: 0;
 }
 
+#control-root-grid {
+    display: grid;
+    grid-template-areas:
+        'currentItemArea settingsRightBarArea'
+        'controlBarArea settingsRightBarArea';
+    grid-auto-flow: column;
+    grid-template-columns: auto 2.2rem;
+    column-gap: 10px;
+}
+
 #controlbar {
+    grid-area: controlBarArea;
     list-style-type: none;
     margin-left: 0;
     margin-right: 0;
@@ -20,12 +31,11 @@
     padding: 0;
     display: grid;
     grid-auto-flow: column;
-    grid-template-areas : 'toolbarBtnPrev toolbarBtnPlaypause toolbarBtnNext . toolbarBtnSettings';
-    grid-template-columns: min-content min-content min-content auto min-content;
+    grid-template-columns: 2.2rem 2.2rem auto;
     column-gap: 3px;
 }
 
-#controlbar > div > button {
+#control-root-grid .bar-button {
     width: 2.2rem;
     height: 2.2rem;
     background-size: 1.9rem 1.9rem;
@@ -37,48 +47,38 @@
 
 }
 
-#controlbar > div#control-previous {
-    grid-area: toolbarBtnPrev;
-}
-
-#controlbar > div#control-previous > button {
+div#control-previous > button {
     background-image: url('../../img/previous-green.svg');
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
 }
 
-#controlbar > div#control-play-pause {
-    grid-area: toolbarBtnPlaypause;
-}
-
-#controlbar > div#control-play-pause > button.control-play-btn {
+div#control-play-pause > button.control-play-btn {
     background-image: url('../../img/play-green.svg');
 }
 
-#controlbar > div#control-play-pause > button.control-pause-btn {
+div#control-play-pause > button.control-pause-btn {
     background-image: url('../../img/pause-green.svg');
 }
 
-#controlbar > div#control-next {
-    grid-area: toolbarBtnNext;
-}
-
-#controlbar > div#control-next > button {
+div#control-next > button {
     background-image: url('../../img/next-green.svg');
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
 }
 
-#controlbar > div#control-settings {
-    grid-area: toolbarBtnSettings;
+#control-volume > button {
+    background-image: url('../../img/speaker-green.svg');
+    border-radius: 5px;
 }
 
-#controlbar > div#control-settings > button {
+#control-settings > button {
     background-image: url('../../img/settings-green.svg');
     border-radius: 5px;
 }
 
 #current-item-display {
+    grid-area: currentItemArea;
     width: 100%;
     background-color: var(--display-text-background-color);
     color:var(--display-text-color);
@@ -105,66 +105,13 @@
     font-size: 90%;
 }
 
-#control-root-grid {
+#control-right-bar {
+    grid-area: settingsRightBarArea;
+    
     display: grid;
-    grid-auto-flow: column;
-    grid-template-columns: auto 40px;
-    column-gap: 5px;
+    grid-auto-flow: row;
+    grid-auto-rows: 2.2rem;
+    row-gap: 6px;
 }
 
-#control-volume {
-    grid-row: 1 / span 2;
-    display: flex;
-    position: relative;
-    /*justify-content: center;
-    align-items: center;*/
-}
 
-/******************
-   Volume slider 
-*******************/
-
-#volume-slider {
-    position: absolute;
-    bottom: 0;
-    left: 15px;
-    margin: 0;
-    writing-mode: vertical-lr;
-    direction: rtl;
-    height: 90px;
-    width: 12px;
-    -webkit-appearance: none;
-    background: rgba(0, 0 , 0 , 0);
-    border-radius: 12px;
-    border : 2px groove var(--display-text-border-color);
-}
-
-#volume-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 21px;
-  height: 14px;
-  border-radius: 2px;
-  background: var(--btn-text-color);
-  cursor: pointer;
-  border: 2px outset var(--slider-thumb-border-color);
-}
-
-#volume-slider::-moz-range-thumb {
-    width: 17px;
-    height: 10px;
-    border-radius: 2px;
-    background: var(--btn-text-color);
-    cursor: pointer;
-    border: 2px outset var(--slider-thumb-border-color);
-}
-
-#volume-height {
-    position: absolute;
-    bottom: 1px;
-    left: 16px;
-    width: 10px;
-    height: 45px;
-    background: var(--slider-track-color);
-    border-radius: 0 0 12px 12px;
-}

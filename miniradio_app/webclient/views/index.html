@@ -16,6 +16,7 @@
     <link href="css/sections/folders-tree.css" rel="stylesheet">
     <link href="css/commons/snackbar.css" rel="stylesheet">
     <link href="css/sections/settings.css" rel="stylesheet">
+    <link href="css/sections/volume.css" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
 </head>
 
@@ -23,7 +24,7 @@
     <header>
         <section id="control">
             <h1>Control</h1>
-            <input type="hidden" id="current-item-id"\>
+            <input type="hidden" id="current-item-id" \>
             <div id="control-root-grid">
                 <div id="current-item-display">
                     <div id="current-item-title"></div>
@@ -31,31 +32,43 @@
                 </div>
                 <section id="controlbar">
                     <div id="control-previous">
-                        <button type="button" onclick="controlBtnPreviousOnClick()" title="Previous song"></button>
+                        <button type="button" onclick="controlBtnPreviousOnClick()" title="Previous song" class="bar-button"></button>
                     </div>
                     <div id="control-play-pause">
-                        <button type="button" onmousedown="controlBtnPlayPauseOnClick()" title="Play or pause" class="control-play-btn"></button>
+                        <button type="button" onmousedown="controlBtnPlayPauseOnClick()" title="Play or pause"
+                            class="control-play-btn bar-button"></button>
                     </div>
                     <div id="control-next">
-                        <button type="button" onclick="controlBtnNextOnClick()" title="Next song"></button>
+                        <button type="button" onclick="controlBtnNextOnClick()" title="Next song" class="bar-button"></button>
                     </div>
+                </section>
+                <section id="control-right-bar">
+                    <div id="control-volume">
+                        <button type="button" title="Volume" id="control-volume-btn" class="bar-button"></button>
+                        <div id="volume-drop-down" class="drop_down_list">
+                            <span id="volume-title">Volume</span>
+                            <div id="volume-height"></div>
+                            <input id="volume-slider" type="range" min="0" max="100" step="1"
+                                onchange="volumeSliderOnChange(this.value)"
+                                oninput="volumeSliderOnInput(this.value)"
+                                onmousedown="volumeSliderOnMouseDown()"
+                                onmouseup="volumeSliderOnMouseUp()" />
+                            <span id="volume-percentage"></span>
+                        </div>
+                    </div>
+
                     <div id="control-settings">
-                        <button type="button" title="Settings" id="control-settings-btn"></button>
+                        <button type="button" title="Settings" id="control-settings-btn" class="bar-button"></button>
                         <menu id="settings-drop-down" class="drop_down_list">
-                            <li><button onclick="settingsRefreshDbOnClick()" title="Refresh folder database with filesystem content">Refresh database</button></li>
-                            <li><button onclick="settingsToggleExpertMode()" title="Set the expert mode to be able to modify some elements of the database.">Expert mode</button></li>
+                            <li><button onclick="settingsRefreshDbOnClick()"
+                                    title="Refresh folder database with filesystem content">Refresh database</button>
+                            </li>
+                            <li><button onclick="settingsToggleExpertMode()"
+                                    title="Set the expert mode to be able to modify some elements of the database.">Expert
+                                    mode</button></li>
                         </menu>
                     </div>
                 </section>
-                <div id="control-volume">
-                    <div id="volume-height"></div>
-                    <input id="volume-slider" type="range" min="0" max="100" step="1"
-                        onchange="controlVolumeSliderOnChange(this.value)"
-                        oninput="controlVolumeSliderOnInput(this.value)"
-                        onmousedown="controlVolumeSliderOnMouseDown()"
-                        onmouseup="controlVolumeSliderOnMouseUp()"
-                        />
-                </div>
             </div>
         </section>
         <section id="tabs">
@@ -85,8 +98,10 @@
                             <summary>
                                 <div class="folder-title">
                                     <span name="folder-title-text">Folder title</span>
-                                    <button name="addBtn" class="mini-action" onclick="folderAddOnClick(this)" title="Append all songs of folder in queue"></button>
-                                    <button name="playBtn" class="mini-action" onclick="folderPlayOnClick(this)" title="Clear queue and put all songs of folder in queue"></button>
+                                    <button name="addBtn" class="mini-action" onclick="folderAddOnClick(this)"
+                                        title="Append all songs of folder in queue"></button>
+                                    <button name="playBtn" class="mini-action" onclick="folderPlayOnClick(this)"
+                                        title="Clear queue and put all songs of folder in queue"></button>
                                 </div>
                             </summary>
                             <!-- Insert here an other "folder-list"-->
@@ -94,8 +109,10 @@
                     </li>
                     <li class="folder-song-item">
                         <span name="song-title-text" class="displayText">Song title</span>
-                        <button name="addBtn" class="mini-action" onclick="folderSongAddOnClick(this)" title="Append song in queue"></button>
-                        <button name="playBtn" class="mini-action" onclick="folderSongPlayOnClick(this)" title="Clear queue and play song"></button>
+                        <button name="addBtn" class="mini-action" onclick="folderSongAddOnClick(this)"
+                            title="Append song in queue"></button>
+                        <button name="playBtn" class="mini-action" onclick="folderSongPlayOnClick(this)"
+                            title="Clear queue and play song"></button>
                     </li>
                 </ul>
             </section>
@@ -121,7 +138,8 @@
                     </li>
                     <li class="folder-song-item">
                         <span name="song-title-text" class="displayText">Song title</span>
-                        <button name="playBtn" class="mini-action" onclick="radioBtnPlayOnClick(this)" title="Clear queue and play radio"></button>
+                        <button name="playBtn" class="mini-action" onclick="radioBtnPlayOnClick(this)"
+                            title="Clear queue and play radio"></button>
                     </li>
                 </ul>
             </section>
@@ -139,13 +157,15 @@
             </div>
             <section id="queue-list">
                 <form id="queue-form">
-                <ul>
-                    <li id="queue-list-item-template" class="queue-item">
-                        <input type="radio" name="queue-current-item" id="item-queue-template-id" onchange="queueCurrentItemOnChange(this);"/>
-                        <label name="label-queue-current-item" for="item-queue-template-id" class="displayText"></label>
-                        <button name="removeBtn" class="mini-action" title="Remove item from queue"></button>
-                    </li>
-                </ul>
+                    <ul>
+                        <li id="queue-list-item-template" class="queue-item">
+                            <input type="radio" name="queue-current-item" id="item-queue-template-id"
+                                onchange="queueCurrentItemOnChange(this);" />
+                            <label name="label-queue-current-item" for="item-queue-template-id"
+                                class="displayText"></label>
+                            <button name="removeBtn" class="mini-action" title="Remove item from queue"></button>
+                        </li>
+                    </ul>
                 </form>
             </section>
         </section>
@@ -165,5 +185,5 @@
 <script src="js/common.js"></script>
 <script src="js/snackbar.js"></script>
 <script src="js/settings.js"></script>
-
+<script src="js/volume.js"></script>
 </html>
